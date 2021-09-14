@@ -1,0 +1,15 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+	<div class="card-header bg-primary">
+		<a href="{% url 'tasks' %}" class="fs-1 text-light">&#8249;</a>
+	</div>
+	<div class="card-body">
+		<form action="" method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+
+{% endblock content %}

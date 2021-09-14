@@ -1,0 +1,49 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+	<div class="card-header bg-primary text-light">
+		<div class="row p-3">
+			<div class="col-lg-11 col-md-10 col-sm-10">
+				<h2>Hello, {{ request.user|title }}</h2>
+				<p class="fs-5">You have <strong>{{ count }}</strong> incomplete task{{ count|pluralize:"s" }}</p>
+			</div>
+			<div class="col-lg-1 col-md-2 col-sm-2">
+				<div class="row">
+					{% if request.user.is_authenticated %}
+						<a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+					{% else %}
+						<a href="{% url 'login' %}">Login</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="search-add-wrapper">
+					<a href="{% url 'task-create' %}" class="btn btn-primary">Add Task</a>
+					<form method="GET">
+						<input type="text" name="keyword" value="{{ search_input }}" placeholder="Search Keyword">
+					</form>
+		</div>
+		<div class="task-wrapper">
+			{% for task in tasks %}
+				<div class="task-items">
+					{% if task.complete %}
+						<div class="task-title d-flex">
+							<div class="task-complete"></div>
+							<i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+						</div>
+						<a href="{% url 'task-delete' task.id %}" class="text-danger fs-1">&#215;</a>
+					{% else %}
+						<div class="task-title d-flex">
+							<div class="task-incomplete"></div>
+							<a href="{% url 'task-update' task.id %}">{{ task }}</a>
+						</div>
+						<a href="{% url 'task-delete' task.id %}" class="text-danger fs-1">&#215;</a>
+					{% endif %}
+				</div>	
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock content %}

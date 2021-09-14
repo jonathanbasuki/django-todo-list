@@ -1,0 +1,15 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+	<div class="card-header bg-primary">
+		<a href="{% url 'tasks' %}" class="fs-1 text-light">&#8249;</a>
+	</div>
+	<div class="card-body">
+		<form action="" method="post">
+			{% csrf_token %}
+			<p class="fs-5">Are you sure you want to delete this task? <span class="badge bg-warning text-dark">{{ task }}</span></p>
+			<button type="submit" class="btn btn-danger">Delete</button>
+		</form>
+	</div>
+
+{% endblock content %}
